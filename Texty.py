@@ -5,17 +5,55 @@ import os
 
 a1 = "2"
 menu = 4
+menutime = 0
 sleepcounter = 0
 ans = "Answer: "
 name = ""
 go = "Game over"
 namebol = "no"
-gamename = "Text-Game"
+gamename = "Led"
 
 config = configparser.RawConfigParser()
 config.read("D:\\config.cfg")
 
 
+def yon(question):
+    yesorno = input(question)
+    if yesorno != "yes":
+        return True
+    return False
+def cls():
+    print("\n" * 40)      
+def rest():
+    time.sleep(1)
+def wait1():
+    time.sleep(0.5)
+def wait2():
+    time.sleep(1)
+def wait3():
+    time.sleep(1.5)
+def wait4():
+    time.sleep(2)
+def tomenu():
+    menu = 4
+    cls()
+def pause():
+        input("Press enter to continue...")
+        cls()
+def pausekeep():
+        input("Press enter to continue...")
+def dotdotdot(wait):
+    wait()
+    print("")
+    print(".")
+    wait()
+    cls()
+    print("..")
+    wait()
+    cls()
+    print("...")
+    wait()
+    cls()
 
 def GameOver():
     while True:
@@ -46,42 +84,48 @@ def GameOver():
         print("Game Ove ")
         time.sleep(0.1)
         cls()
-
-def cls():
-    print("\n" * 100)      
-def rest():
-    time.sleep(1)
-def wait1():
-    time.sleep(0.5)
-def wait2():
-    time.sleep(1)
-def wait3():
-    time.sleep(1.5)
-def wait4():
-    time.sleep(2)
-def tomenu():
-    menu = 4
-    cls()
-def pause():
-        input("Press enter to continue...")
-        cls()
-
-
+def introscreen():
+    print("                ..:::::::::..          ")
+    print("           ..:::aad8888888baa:::..      ")
+    print("        .::::d:?88888888888?::8b::::. ")
+    print("      .:::d8888:?88888888??a888888b:::.  ")
+    print("      .:::d8888:?88888888??a888888b:::.  ")
+    print("   ::::dP::::::::88888888888::::::::Yb::::       ")
+    print("  ::::dP:::::::::Y888888888P:::::::::Yb::::     ")
+    print(" ::::d8:::::::::::Y8888888P:::::::::::8b::::   ")
+    print(".::::88::::::::::::Y88888P::::::::::::88::::.      ")
+    print(":::::Y8baaaaaaaaaa88P:T:Y88aaaaaaaaaad8P:::::   ")
+    print(":::::::Y88888888888P::|::Y88888888888P:::::::  ")
+    print("::::::::::::::::888:::|:::888:::::::::::::::: ")
+    print("`:::::::::::::::8888888888888b::::::::::::::'")
+    print(" :::::::::::::::88888888888888:::::::::::::: ")
+    print("  :::::::::::::d88888888888888:::::::::::::  ")
+    print("   ::::::::::::88::88::88:::88::::::::::::")
+    print("    `::::::::::88::88::88:::88::::::::::'")
+    print("      `::::::::88::88::P::::88::::::::' ")
+    print("        `::::::88::88:::::::88::::::'  ")
+    print("           ``:::::::::::::::::::''    ")
+    print("                ``:::::::::''        ")
+    print("")
 
 
 #///--Appplication Launch--\\\#
 
-print("Welcome, to " + gamename + ". Enjoy your stay!")
-pause()
 
 while menu == 4:
-    
+    cls()
+    introscreen()
+    print("Welcome, to " + gamename + ", an interactve game.")
+    if (menutime == 0):
+        input("Press enter to begin")
     print("1. Start Game")
     print("2. Options")
     print("3. Get info")
     print("x. Exit")
 
     menu = input(ans)
+    if menutime != 1:
+        menutime = 1
         
     if menu == "1":
         textspeed = "fast"
@@ -185,57 +229,63 @@ if config['info']['speed'] == "slow":               #slow
 
 
 
-           
-while a1 == "2":
+
+while a1 != "1":
+    cls()
+    dotdotdot(wait1)
     sleepcounter = sleepcounter + 1
-    if sleepcounter == 4:
-        type("A cold chill passes through your right arm as you fall deeper asleep, never to wake again.")
+    if sleepcounter == 3:
+        type("The voices grow distant as you slowly drift deeper asleep, never to wake again.")
         input("Press enter to continue.")
         GameOver()
-    type("You drift within nothingness, you hear a faint voice.")
+    type("You drift aimlessly and as you do, you hear a faint voice.")
     wait1()
     type("1. Wake.")
     wait1()
     type("2. Sleep.")
-    wait1()
     a1 = input(ans)
-    cls()
-    
-if a1 == "1":
-    type("You wake.")
-    pause()
-    type("Surgeons suround you as you lay hopitalised in a surgery clinic.")
-    pause()      
-    type("'Is he awake?'")
-    wait1()
-    type("...")
-    wait2()
-    type("'I believe so.")
-    pause()
-    cls()
+        
 
-if sleepcounter > 2:
-    type("Thank god, I was close to putting him out for good'")
-    wait2()
-    type("The lady squeezes the contents of a syringe into the sink next to the wall to the right of the bed.")         
+if a1 == "1":
+    cls()
+    type("You wake up.")
     pause()
+    type("A tall, gray figure hulks over you.")
+    pause()      
+    type("???: 'Is he awake?'")
+    wait1()
+    type("???: ...")
+    wait2()
+    type("???: 'I believe so.'")
+    pause()
+    if sleepcounter > 1:
+        type("???: 'Oh my, a moment later and I would've ended his suffering.'")      
+        pause()
 
 while name == "":
-    type("'Can you hear me? Do you remember your name? If so, what is it?'")
+    cls()
+    type("???: 'Can you hear me? Have you got a name, and if so, what is it?'")
     name = input(ans)
     if name == "no":
-        type("Ah, well I'm sure you will, in time.")
+        type("???: 'Oh, well I'm sure you will, in time.'")
         name = "Stranger"
         
-type(name + ", is that it?")
-namebol = input(ans)
-while namebol == "no":
-    type("Then what is it?")
-    name = input(ans)
-    type(name + ", is that it?")
-    namebol = input(ans)
+if name != "Stranger":
+    cls()
+    type("???: '" + name + ", is that it?'")
+    while yon(ans):
+        cls()
+        type("???: 'Then what is it?'")
+        name = input(ans)
+        cls()
+        type("???: '" + name + ", is that correct?'")
 wait1()
 
-type("It's a pleasure, " + name)
+cls()
+type("???: 'It's a pleasure, " + name + ". Name's Flay.")
 pause()
-
+type("Flay: 'I, along with my goblin friend here, Gaam, found you lying in \nthe nearby woods'")
+pausekeep()
+type("Gaam: 'Hello.'")
+pause()
+type("''")
