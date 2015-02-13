@@ -13,8 +13,12 @@ go = "Game over"
 namebol = "no"
 gamename = "Led"
 
+configPath = "data.cfg"
+
 config = configparser.RawConfigParser()
-config.read("D:\\config.cfg")
+config.read(configPath)
+
+
 
 
 def yon(question):
@@ -23,17 +27,16 @@ def yon(question):
         return True
     return False
 def cls():
-    print("\n" * 40)      
-def rest():
-    time.sleep(1)
-def wait1():
-    time.sleep(0.5)
-def wait2():
-    time.sleep(1)
-def wait3():
-    time.sleep(1.5)
-def wait4():
-    time.sleep(2)
+    print("\n" * 60)      
+def wait(time):
+    if time == 1:
+        time.sleep(0.5)
+    if time == 2:
+        time.sleep(1.0)
+    if time == 3:
+        time.sleep(1.5)
+    if time == 4:
+        time.sleep(2.0)
 def tomenu():
     menu = 4
     cls()
@@ -110,8 +113,6 @@ def introscreen():
 
 
 #///--Appplication Launch--\\\#
-
-
 while menu == 4:
     cls()
     introscreen()
@@ -149,25 +150,25 @@ while menu == 4:
             if textoption == "1":
                 config.set('info', 'speed', 'instant')  #speed set to instant
                 cls()
-                print("Text speed set to instant.")             
+                print("Text speed set to " + config['info']['speed'] + ".")             
                 pause()
                 menu = 4
             if textoption == "2":                   
                 config.set('info', 'speed', 'fast')     #speed set to fast
                 cls()
-                print("Text speed set to fast.")
+                print("Text speed set to " + config['info']['speed'] + ".")
                 pause()
                 menu = 4
             if textoption == "3":                   
                 config.set('info', 'speed', 'medium')   #speed set to medium
                 cls()
-                print("Text speed set to medium.")
+                print("Text speed set to " + config['info']['speed'] + ".")
                 pause()
                 menu = 4
             if textoption == "4":
                 config.set('info', 'speed', 'slow')     #speed set to slow
                 cls()
-                print("Text speed set to slow.")
+                print("Text speed set to " + config['info']['speed'] + ".")
                 pause()
                 tomenu()
             if textoption == "x":
@@ -232,16 +233,16 @@ if config['info']['speed'] == "slow":               #slow
 
 while a1 != "1":
     cls()
-    dotdotdot(wait1)
+    dotdotdot(wait(1))
     sleepcounter = sleepcounter + 1
     if sleepcounter == 3:
         type("The voices grow distant as you slowly drift deeper asleep, never to wake again.")
         input("Press enter to continue.")
         GameOver()
     type("You drift aimlessly and as you do, you hear a faint voice.")
-    wait1()
+    wait(1)
     type("1. Wake.")
-    wait1()
+    wait(1)
     type("2. Sleep.")
     a1 = input(ans)
         
@@ -253,9 +254,9 @@ if a1 == "1":
     type("A tall, gray figure hulks over you.")
     pause()      
     type("???: 'Is he awake?'")
-    wait1()
+    wait(1)
     type("???: ...")
-    wait2()
+    wait(2)
     type("???: 'I believe so.'")
     pause()
     if sleepcounter > 1:
@@ -279,7 +280,7 @@ if name != "Stranger":
         name = input(ans)
         cls()
         type("???: '" + name + ", is that correct?'")
-wait1()
+wait(1)
 
 cls()
 type("???: 'It's a pleasure, " + name + ". Name's Flay.")
