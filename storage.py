@@ -2,17 +2,19 @@ import defs
 import time
 import sys
 import configparser
-import backpack
 
-pack = {
+backpack = {
 	'sqeck' : 0,
 	'milk' : 0,
 	'wetstone' : 0,
 	'gold' : 25,
 }
 
-bank = {
-
-
-
+gear = {
+	'head' : 0,
+	'chest' : 0,
+	'legs' : 0,
+	'feet' : 0,
+	'mainhand' : 0,
+	'offhand' : 0,
 }

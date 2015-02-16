@@ -2,7 +2,7 @@ import defs
 import time
 import sys
 import configparser
-import backpack
+import storage
 import os
 
 menu = 4

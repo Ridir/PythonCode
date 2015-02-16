@@ -2,7 +2,7 @@ import defs
 import time
 import sys
 import configparser
-import backpack
+import storage
 import os
 
 sleepcounter = 0
@@ -11,11 +11,13 @@ ans = "Answer: "
 stage = 2
 name = ""
 namebol = "no"
+trainbol = ""
 go = "Game over"
 
-def backpack(container, items, nr):
-    backpack.container[items] = backpack.container[items] + 1
-    print(nr + items + " added to backpack!")
+def loot(items, nr):
+    storage.backpack[items] = storage.backpack[items] + nr
+    nr = str(nr)
+    print(nr + " " + items + " added to backpack!")
 def yon(question):
     yesorno = input(question)
     if yesorno != "yes":
@@ -23,15 +25,6 @@ def yon(question):
     return False
 def cls():
     print("\n" * 25)      
-def wait(timer):
-    if timer == 1:
-        time.sleep(0.5)
-    if timer == 2:
-        time.sleep(1.0)
-    if timer == 3:
-        time.sleep(1.5)
-    if timer == 4:
-        time.sleep(2.0)
 def tomenu():
     menu = 4
     cls()
@@ -40,18 +33,22 @@ def pause():
         cls()
 def pausekeep():
         input("Press enter to continue...")
-def dotdotdot(waiter):
-    waiter
-    print(".")
-    waiter
+def dotdotdot():
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(1.0)
     cls()
-    print("..")
-    waiter
-    cls()
-    print("...")
-    waiter
-    cls()
-
+def cleandotdotdot():
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
 def GameOver():
     while True:
         print(" ame Over")

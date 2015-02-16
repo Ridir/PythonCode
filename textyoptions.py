@@ -2,7 +2,7 @@ import defs
 import time
 import sys
 import configparser
-import backpack
+import storage
 import os
 
 configPath =  (os.path.dirname(os.path.realpath(__file__))) + "\data.cfg"
@@ -19,4 +19,4 @@ if config['info']['speed'] == "slow":
     numberspeed = 0.04
 
 
-import textygame
+import textygame2
