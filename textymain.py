@@ -90,7 +90,9 @@ while menu == 4:
     if menu == "3":
         textspeed = config['info']['speed']
         defs.cls()
-        print("Application made by Gustav.")
+        print(gamename + " is an interactive text adventure.")
+        print("When prompted, simply enter the number listed next to the choice you wish to make.")
+        print("At times, you will have to enter 'yes' or 'no' if such a question is asked.")
         print("Text speed set to " + textspeed + ".")
         defs.pause()
         menu = 4

@@ -13,11 +13,17 @@ name = ""
 namebol = "no"
 trainbol = ""
 go = "Game over"
+battlemenu = 0
 
 def loot(items, nr):
     storage.backpack[items] = storage.backpack[items] + nr
     nr = str(nr)
     print(nr + " " + items + " added to backpack!")
+def equip(item, slot):
+    storage.equip[slot] = storage.gear[item]
+    print(item + " was equiped!")
+    pause()
+    cls()
 def yon(question):
     yesorno = input(question)
     if yesorno != "yes":
