@@ -1,21 +1,31 @@
 import defs
-import time
-import sys
-import configparser
-import storage
-import os
 import textyoptions
-
+import time
+import threading
+import sound
+i = 0
 
 def type(str):
     for letter in str:
         print(letter, end='', flush=True)
+        global i
+        i += 1
+        if i == 3:
+            sound.textbeep()
+            if i == 3:
+                i = 0
         time.sleep(textyoptions.numberspeed)
     print("\n")
 def talk(name, str):
     print(name + ": '", end="")
     for letter in str:
         print(letter, end='', flush=True)
+        global i
+        i += 1
+        if i == 3:
+            sound.textbeep()
+            if i == 3:
+                i = 0
         time.sleep(textyoptions.numberspeed)
     print("'")
     print("\n")
@@ -48,6 +58,7 @@ if defs.stage == "1":
     defs.cleandotdotdot()
     print("'")
     time.sleep(1)
+    print("\n")
     talk("???",  "I believe so.")
     defs.pause()
     if defs.sleepcounter > 1:
@@ -72,6 +83,6 @@ if defs.name != "Stranger":
         defs.name = input(defs.ans)
         defs.cls()
         talk("???", defs.name + ", is that correct?")
-time.sleep(0.5)
+time.sleep(1.5)
 
 import textygame2

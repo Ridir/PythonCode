@@ -1,9 +1,9 @@
-import defs
 import time
-import sys
 import configparser
-import storage
+import winsound
 import os
+import defs
+
 
 menu = 4
 menutime = 0
@@ -90,7 +90,7 @@ while menu == 4:
     if menu == "3":
         textspeed = config['info']['speed']
         defs.cls()
-        print(gamename + " is an interactive text adventure.")
+        print(defs.gamename + " is an interactive text adventure.")
         print("When prompted, simply enter the number listed next to the choice you wish to make.")
         print("At times, you will have to enter 'yes' or 'no' if such a question is asked.")
         print("Text speed set to " + textspeed + ".")

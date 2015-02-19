@@ -1,14 +1,14 @@
-import defs
-import time
-import sys
-import configparser
-import storage
 import os
+import time
+import sched
+import sound
+import storage
 
 sleepcounter = 0
 gamename = "Led"
 ans = "Answer: "
 stage = 2
+s = sched.scheduler(time.time, time.sleep)
 name = ""
 namebol = "no"
 trainbol = ""
@@ -16,13 +16,23 @@ go = "Game over"
 battlemenu = 0
 bn = 0
 weaponswag = ""
+gamepath = os.path.dirname(os.path.realpath(__file__))
+
+#Attack/Defence
+baseattack = 50
+basedefence = 50
+armour = storage.equip['head'] + storage.equip['chest'] + storage.equip['legs'] + storage.equip['feet'] + storage.equip['offhand']
+
 
 def loot(items, nr):
     storage.backpack[items] = storage.backpack[items] + nr
     nr = str(nr)
+    sound.loot()
+    cleandotdotdot()
     print(nr + " " + items + " added to backpack!")
 def equip(item, slot):
     storage.equip[slot] = storage.gear[item]
+    sound.equip()
     print(item + " was equiped!")
     pause()
     cls()
@@ -38,9 +48,8 @@ def tomenu():
     cls()
 def pause():
         input("Press enter to continue...")
+        time.sleep(0.0)
         cls()
-def pausekeep():
-        input("Press enter to continue...")
 def dotdotdot():
     time.sleep(0.5)
     print(".", end="")
@@ -58,6 +67,7 @@ def cleandotdotdot():
     time.sleep(0.5)
     print(".", end="")
 def GameOver():
+    sound.gameover()
     while True:
         print(" ame Over")
         time.sleep(0.1)
@@ -110,4 +120,5 @@ def introscreen():
     print("                ``:::::::::''        ")
     print("")
 
-def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleepercent, enemybattleroar, enemyfinishroar, items, xpgain)
+def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleepercent, enemybattleroar, enemyfinishroar, items, xpgain):
+    print("swag")
