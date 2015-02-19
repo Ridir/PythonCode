@@ -39,6 +39,8 @@ def tomenu():
 def pause():
         input("Press enter to continue...")
         cls()
+def pausekeep():
+        input("Press enter to continue...")
 def dotdotdot():
     time.sleep(0.5)
     print(".", end="")
