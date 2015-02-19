@@ -26,8 +26,15 @@ equip = {
 stats = {
 	'agility' : 5,
 	'strength' : 5,
-	'intelect' : 5,
+	'intellect' : 5,
 	'stamina' : 5,
-	'focus' : 5,
-	'Level' : 1,
+	'critchance' : 1.05,
+	'maxhp' : 400,
+	'playerxp' : 0
+}
+
+attacklist = {
+}
+
+spattacklist = {
 }

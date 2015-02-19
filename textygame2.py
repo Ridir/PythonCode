@@ -63,7 +63,7 @@ defs.cls
 talk("Fray", "Of course, should you change your mind you can always get your hands on weapons like these from elsewhere.")
 defs.pause()
 defs.cls()
-while(weaponswag == ""):
+while(defs.weaponswag == ""):
     print("Pick one of the following weapons:")
     print("1. Rugged Sword")
     print("2. Rugged Bow")
@@ -93,7 +93,6 @@ while(weaponswag == ""):
 defs.cls()
 talk("Flay", "Great!")
 defs.pause()
-defs.cls()
 talk("Flay", "Now, face off aginst that dummy over there.")
 defs.pause()
 talk("Flay", "Do you need me to go over the basic principles of fighting, or can you handke yourself?")
@@ -111,15 +110,37 @@ if trainbol == "2":
     talk("Flay", "Suit yourself!")
     defs.pause()
 
-defs.cls()
+enemyhp = enemymaxhp
 type("What?")
 defs.dotdotdot()
-type("Training-Dummy appeared!")
+type(enemyname + " appeared!")
 defs.pause()
-defs.cls()
-while defs.battlemenu = 0:
-    print("Chose your action!")
-    print("1. Attack")
+talk(enemyname, enemybattleroar)
+defs.pause()
+
+
+
+while True
+    if health < 1:
+        print(enemyname + " has defeated you.")
+        defs.pause()
+        print(enemyfinishroar)
+        defs.dotdotdot()
+        type("You faint")
+        defs.pause()
+        defs.GameOver
+    if enemyhp < 1:
+        type("You have defeated" + enemyname + "!")
+        for i in rang(0, len(items)):
+            loot(items[i * 2], items[i * 2 + 1])
+            time.sleep(0.2)
+        pause()
+        storage.stats['playerxp'] = playerxp + xpgain
+        break
+    print("Chose your action!", end="")
+    print("          Enemy Health [" + (enemyhp / (enemymaxhp / 20)) * "=" + (20 - (enemyhp / (enemymaxhp / 20)) * " ")  + "]" + enemyhp + " / " + enemymaxhp + "HP")
+    print("1. Attack", end="")
+    print("          Player Health[" + (health / (maxhealth / 20)) * "=" + (20 - (health / (maxhealth / 20)) * " ")  + "]" + health + " / " + maxhealth + "HP")
     print("2. Inventory")
     print("3. Run")
     battlemenu = input(ans)
@@ -131,10 +152,119 @@ while defs.battlemenu = 0:
         battlemenuattack = input(ans)
         while battlemenuattack == 1:                       #NORMAL ATTACK
             defs.cls()
-            print("")
+            print("Select an attack.")
+            for attack in storage.attacklist:
+                defs.bn += 1
+                print(bn + ". ", end="")
+                print(attack)
+                if defs.bn == 1:
+                    attack1 = attack
+                if defs.bn == 2:
+                    attack2 = attack
+                if defs.bn == 3:
+                    attack3 = attack
+                if defs.bn == 4:
+                    attack4 = attack
+            print("x. Back")
+            defs.bn = 0
+            attackchoice = input(ans)
+            if attackchoice == "1":
+                attackchoice = attack1
+            if attackchoice == "2":
+                attackchoice = attack2
+            if attackchoice == "3":
+                attackchoice = attack3
+            if attackchoice == "4":
+                attackchoice = attack4
+            if attackchoice == "x":
+                break
+            type(name + " used " + attackchoice + ("!"))
+            defs.pause()
+            attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
+            damage = (attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['strength'])
+            if randint(1.00, 2.00) <= storage.stats['critchance']:
+                damage = damage * randint(1.25, 1.50)
+            enemyhp = enemyhp - damage
+            type("...")
+            type(enemyname + " took " + damage "points of damage!")
+            defs.pause()
+            defs.dotdotdot()
+            time.sleep(1)
+            type(enemyname + " prepares an attack!")
+            defs.pause()
+            type("BLAM!")
+            time.sleep(0.2)
+            defs.cls()
+            type("BLAM!")
+            time.sleep(0.2)
+            defs.cls()
+            type("BLAM!")
+            enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
+            playerhealth = playerhealth - enemydamage
+            if playerhealth < 0:
+                playerhealth = 0
+            defs.dotdotdot()
+            time.sleep(1)
+            type("You took " + enemydamage +" points of damage!")
+            defs.pause()
+
         while battlemenuattack == 2:                       #SPECIAL ATTACK
             defs.cls()
-            print("")           
+            print("Select an attack.")
+            for attack in storage.spattacklist:
+                defs.bn += 1
+                print(bn + ". ", end="")
+                print(attack)
+                if defs.bn == 1:
+                    attack1 = attack
+                if defs.bn == 2:
+                    attack2 = attack
+                if defs.bn == 3:
+                    attack3 = attack
+                if defs.bn == 4:
+                    attack4 = attack
+            defs.bn = 0
+            attackchoice = input(ans)
+            if attackchoice == 1:
+                attackchoice = attack1
+            if attackchoice == 2:
+                attackchoice = attack2
+            if attackchoice == 3:
+                attackchoice = attack3
+            if attackchoice == 4:
+                attackchoice = attack4
+            type(name + " used " + attackchoice + ("!"))
+            defs.pause()
+            attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
+            damage = ((attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['intellect']) * attackpower) + 50
+            if randint(1.00, 2.00) <= storage.stats['critchance']:
+                damage = damage * randint(1.25, 1.50)
+            enemyhp = enemyhp - damage
+            type("...")
+            type(enemyname " took " + damage + " points of damage!")
+            defs.pause()
+            defs.dotdotdot()
+            time.sleep(1)
+            type(enemyname + " prepares an attack!")
+            defs.pause()
+            type("BLAM!")
+            time.sleep(0.2)
+            defs.cls()
+            type("BLAM!")
+            time.sleep(0.2)
+            defs.cls()
+            type("BLAM!")
+            enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
+            playerhealth = playerhealth - enemydamage
+            if playerhealth < 0:
+                playerhealth = 0
+            defs.dotdotdot()
+            time.sleep(1)
+            type("You took " + enemydamage +" points of damage!")
+            defs.pause()
+
+        if battlemenuattack == x:
+            break
     while battlemenu == "2":
         defs.cls()
         for item in storage.backpack:
@@ -142,5 +272,12 @@ while defs.battlemenu = 0:
         itemchoice = input("Which item?: ")
         for item in storage.backpack:
             if itemchoice == item:
-                
-
+    if battlemenu == 3 and runbol == True and randint(1, 10) < fleepercent:
+        defs.cls()
+        type("You fled from the battle!")
+        defs.pause()
+        break
+    else:
+        defs.cls()
+        type("Couldn't get away!")
+        defs.pause()

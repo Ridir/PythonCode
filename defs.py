@@ -14,6 +14,8 @@ namebol = "no"
 trainbol = ""
 go = "Game over"
 battlemenu = 0
+bn = 0
+weaponswag = ""
 
 def loot(items, nr):
     storage.backpack[items] = storage.backpack[items] + nr
@@ -108,3 +110,4 @@ def introscreen():
     print("                ``:::::::::''        ")
     print("")
 
+def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleepercent, enemybattleroar, enemyfinishroar, items, xpgain)
