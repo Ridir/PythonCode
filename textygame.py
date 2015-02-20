@@ -10,9 +10,9 @@ def type(str):
         print(letter, end='', flush=True)
         global i
         i += 1
-        if i == 3:
+        if i == 4:
             sound.textbeep()
-            if i == 3:
+            if i == 4:
                 i = 0
         time.sleep(textyoptions.numberspeed)
     print("\n")
@@ -31,6 +31,7 @@ def talk(name, str):
     print("\n")
 
 while defs.stage != "1":
+    defs.battle("Sporre", 50, 50, 50, 50, "JAVA!! GLITCH!!", "SMELLS LIKE PYTHON!!", ['milk', 69], 69)
     defs.cls()
     defs.dotdotdot()
     defs.sleepcounter = defs.sleepcounter + 1
@@ -63,17 +64,17 @@ if defs.stage == "1":
     defs.pause()
     if defs.sleepcounter > 1:
         defs.cls()
-        talk("???", "Oh my, ", time.sleep(0.3), "a moment later and I would've ended his suffering.")      
+        talk("???", "Oh my, a moment later and I would've ended his suffering.")      
         defs.pause()
 
 while defs.name == "":
     defs.cls()
     talk("???", "Can you hear me? Do you remember your name, and if so, what is it?")
-    defs.name = input(defs.ans)
+    defs.name = input(defs.ans)        
+
     if defs.name == "no":
         talk("???",  "Oh, well I'm sure you will, in time.")
         defs.name = "Stranger"
-        
 if defs.name != "Stranger":
     defs.cls()
     talk("???", defs.name + ", is that it?")

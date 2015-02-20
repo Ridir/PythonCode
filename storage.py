@@ -6,6 +6,7 @@ backpack = {
 	'Bread' : 0,
 	'Whetstone' : 0,
 	'Gold' : 0,
+	'Fire' : 2,
 }
 
 gear = {

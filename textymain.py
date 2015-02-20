@@ -28,7 +28,7 @@ while menu == 4:
     menu = input(defs.ans)
     if menutime != 1:
         menutime = 1
-        
+        5
     if menu == "1":
         break
     while menu == "2":
