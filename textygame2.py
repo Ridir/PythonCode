@@ -2,6 +2,7 @@ import defs
 import time
 import sound
 import textyoptions
+import math
 i = 0
 
 def type(str):
@@ -9,9 +10,9 @@ def type(str):
         print(letter, end='', flush=True)
         global i
         i += 1
-        if i == 3:
+        if i == 4:
             sound.textbeep()
-            if i == 3:
+            if i == 4:
                 i = 0
         time.sleep(textyoptions.numberspeed)
     print("\n")
@@ -21,9 +22,9 @@ def talk(name, str):
         print(letter, end='', flush=True)
         global i
         i += 1
-        if i == 3:
+        if i == 4:
             sound.textbeep()
-            if i == 3:
+            if i == 4:
                 i = 0
         time.sleep(textyoptions.numberspeed)
     print("'")
@@ -68,10 +69,10 @@ defs.pause()
 talk("Flay", "Just leave him be for a while and it will pass.")
 defs.pause()
 talk("Flay", "I prepared this bag of supplies while you were asleep, if you were to \nleave as soon as you woke up.")
-defs.loot('milk', 2)
-defs.loot('bread', 2)
-defs.loot('whetstone', 1)
-defs.loot('gold', 100)
+defs.loot('Milk', 2)
+defs.loot('Bread', 2)
+defs.loot('Whetstone', 1)
+defs.loot('Gold', 100)
 talk("Flay", "I found that wetstone out in the woods about the same time we found you.")
 defs.pause()
 talk("Flay", "It will allow you to sharpen any weapon you happen to find.")
@@ -96,7 +97,7 @@ type("Fray points towards a weaponrack, situated right besides the exit.")
 defs.pause()
 talk("Fray", "Of course, should you change your mind you can always get your hands on \nweapons just like these from elsewhere.")
 defs.pause()
-while(defs.weaponswag == ""):
+while(defs.weaponswag == "4"):
     print("Pick one of the following weapons:")
     print("1. Rugged Sword")
     print("2. Rugged Bow")
@@ -148,176 +149,3 @@ if trainbol == "2":
 
 
 #BATTLE PART THINGY DO THIS AND THAT I GET THE DRILL
-attackpower = storage.equip['mainhand'] + defs.baseattack
-defencepower = defs.armour + defs.basedefence
-enemyhp = enemymaxhp
-type("What?")
-defs.dotdotdot()
-type(enemyname + " appeared!")
-defs.pause()
-talk(enemyname, enemybattleroar)
-defs.pause()
-battle = True
-while True:
-    if health < 1:
-        print(enemyname + " has defeated you.")
-        defs.pause()
-        print(enemyfinishroar)
-        defs.dotdotdot()
-        type("You faint")
-        defs.pause()
-        defs.GameOver
-    if enemyhp < 1:
-        type("You have defeated" + enemyname + "!")
-        for i in rang(0, len(items)):
-            loot(items[i * 2], items[i * 2 + 1])
-            time.sleep(0.2)
-        pause()
-        storage.stats['playerxp'] = playerxp + xpgain
-        break
-    print("Chose your action!", end="")
-    print("          Enemy Health [" + (enemyhp / (enemymaxhp / 20)) * "=" + (20 - (enemyhp / (enemymaxhp / 20)) * " ")  + "]" + enemyhp + " / " + enemymaxhp + "HP")
-    print("1. Attack", end="")
-    print("          Player Health[" + (health / (maxhealth / 20)) * "=" + (20 - (health / (maxhealth / 20)) * " ")  + "]" + health + " / " + maxhealth + "HP")
-    print("2. Inventory")
-    print("3. Run")
-    battlemenu = input(ans)
-    while battlemenu == "1":
-        defs.cls()
-        print("1. Normal")
-        print("2. Special")
-        print("x. Back")
-        battlemenuattack = input(ans)
-        while battlemenuattack == 1:                       #NORMAL ATTACK
-            defs.cls()
-            print("Select an attack.")
-            for attack in storage.attacklist:
-                defs.bn += 1
-                print(bn + ". ", end="")
-                print(attack)
-                if defs.bn == 1:
-                    attack1 = attack
-                if defs.bn == 2:
-                    attack2 = attack
-                if defs.bn == 3:
-                    attack3 = attack
-                if defs.bn == 4:
-                    attack4 = attack
-            print("x. Back")
-            defs.bn = 0
-            attackchoice = input(ans)
-            if attackchoice == "1":
-                attackchoice = attack1
-            if attackchoice == "2":
-                attackchoice = attack2
-            if attackchoice == "3":
-                attackchoice = attack3
-            if attackchoice == "4":
-                attackchoice = attack4
-            if attackchoice == "x":
-                break
-            type(name + " used " + attackchoice + ("!"))
-            defs.pause()
-            attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
-            damage = (attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['strength'])
-            if randint(1.00, 2.00) <= storage.stats['critchance']:
-                damage = damage * randint(1.25, 1.50)
-            enemyhp = enemyhp - damage
-            type("...")
-            type(enemyname + " took " + damage + "points of damage!")
-            defs.pause()
-            defs.dotdotdot()
-            time.sleep(1)
-            type(enemyname + " prepares an attack!")
-            defs.pause()
-            type("BLAM!")
-            time.sleep(0.2)
-            defs.cls()
-            type("BLAM!")
-            time.sleep(0.2)
-            defs.cls()
-            type("BLAM!")
-            enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
-            playerhealth = playerhealth - enemydamage
-            if playerhealth < 0:
-                playerhealth = 0
-            defs.dotdotdot()
-            time.sleep(1)
-            type("You took " + enemydamage + " points of damage!")
-            defs.pause()
-
-        while battlemenuattack == 2:                       #SPECIAL ATTACK
-            defs.cls()
-            print("Select an attack.")
-            for attack in storage.spattacklist:
-                defs.bn += 1
-                print(bn + ". ", end="")
-                print(attack)
-                if defs.bn == 1:
-                    attack1 = attack
-                if defs.bn == 2:
-                    attack2 = attack
-                if defs.bn == 3:
-                    attack3 = attack
-                if defs.bn == 4:
-                    attack4 = attack
-            defs.bn = 0
-            attackchoice = input(ans)
-            if attackchoice == 1:
-                attackchoice = attack1
-            if attackchoice == 2:
-                attackchoice = attack2
-            if attackchoice == 3:
-                attackchoice = attack3
-            if attackchoice == 4:
-                attackchoice = attack4
-            type(name + " used " + attackchoice + "!")
-            defs.pause()
-            attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
-            damage = ((attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['intellect']) * attackpower) + 50
-            if randint(1.00, 2.00) <= storage.stats['critchance']:
-                damage = damage * randint(1.25, 1.50)
-            enemyhp = enemyhp - damage
-            type("...")
-            defs.pause()
-            type(enemyname + " took " + damage + " points of damage!")
-            defs.pause()
-            defs.dotdotdot()
-            time.sleep(1)
-            type(enemyname + " prepares an attack!")
-            defs.pause()
-            type("BLAM!")
-            time.sleep(0.2)
-            defs.cls()
-            type("BLAM!")
-            time.sleep(0.2)
-            defs.cls()
-            type("BLAM!")
-            enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
-            playerhealth = playerhealth - enemydamage
-            if playerhealth < 0:
-                playerhealth = 0
-            defs.dotdotdot()
-            time.sleep(1)
-            type("You took " + enemydamage +" points of damage!")
-            defs.pause()
-
-        if battlemenuattack == x:
-            break
-    while battlemenu == "2":
-        defs.cls()
-        for item in storage.backpack:
-            print(item, '    ', storage.backpack[item][number])
-        itemchoice = input("Which item?: ")
-        for item in storage.backpack:
-            if itemchoice == item:
-                print("Under construction")                                  #FIX THIS SHIT
-    if battlemenu == 3 and runbol == True and randint(1, 10) < fleepercent:
-        defs.cls()
-        type("You fled from the battle!")
-        defs.pause()
-        break
-    else:
-        defs.cls()
-        type("Couldn't get away!")
-        defs.pause()
