@@ -31,7 +31,8 @@ def talk(name, str):
     print("\n")
 
 while defs.stage != "1":
-    defs.battle("Sporre", 50, 50, 50, 50, "JAVA!! GLITCH!!", "SMELLS LIKE PYTHON!!", ['milk', 69], 69)
+    defs.addatk('Arrow Shot', 30, 'empty')
+    defs.battle("Sporre", 50, 100, 50, 0, 90, "JAVA!! GLITCH!!", "SMELLS LIKE PYTHON!!", ['milk', 69], 69)
     defs.cls()
     defs.dotdotdot()
     defs.sleepcounter = defs.sleepcounter + 1

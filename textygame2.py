@@ -111,18 +111,24 @@ while(defs.weaponswag == "4"):
         if weaponbol == "yes":
             storage.gear['ruggedsword'] = 10
             equip('ruggedsword', 'mainhand')
+            defs.addatk('Slash', 20, 'empty')
+            defs.addatkall('Slash', 20, 'empty')
     if weaponswag == "2":
         talk("Flay", "A bow, huh? Works great against most armor from a distance, doesn't work all that \nwell with clubsy heavy armour though...")
         weaponbol = input("Confirm(yes/no)?: ")
         if weaponbol == "yes":
            storage.gear['ruggedbow'] = 15
            equip('ruggedbow', 'mainhand')
+           defs.addatk('Arrow Shot', 30, 'empty')
+           defs.addatkall('Arrow Shot', 30, 'empty')
     if weaponswag == "3":
         talk("Flay", "A staff, huh? Works great against all kinds of armour from a distance, heavier \narmour with strong enchantments are hard to come by though.")
         weaponbol = input("Confirm(yes/no)?: ")
         if weaponbol == "yes":
             storage.gear['ruggedstaff'] = 25
             equip('ruggedstaff', 'mainhand')
+            addspatk('Firebolt', 50, 'empty')
+            addspatkall('Firebolt', 50, 'empty')
 
 defs.cls()
 talk("Flay", "Great!")

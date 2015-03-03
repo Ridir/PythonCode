@@ -40,6 +40,12 @@ def equip(item, slot):
     print(item + " was equiped!")
     pause()
     cls()
+def addatk(attack, dmg, oldattack):
+    storage.attacklist[attack] = dmg
+    storage.attacklist.pop(oldattack, None)
+def addspatk(attack, dmg, oldattack):
+    storage.spattacklist[attack] = dmg
+    storage.spattacklist.pop(oldattack, None)
 def yon(question):
     yesorno = input(question)
     if yesorno != "yes":
@@ -126,8 +132,9 @@ def introscreen():
     print("                ``:::::::::''        ")
     print("")
 
-def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleepercent, enemybattleroar, enemyfinishroar, items, xpgain):
+def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleepercent, hitpercent, enemybattleroar, enemyfinishroar, items, xpgain):
     import textygame
+    name = "Ridir"
     attackpower = storage.equip['Mainhand'] + baseattack
     defencepower = armour + basedefence
     health = storage.stats['Maxhp']
@@ -140,15 +147,18 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
     textygame.talk(enemyname, enemybattleroar)
     battle = True
     running = True
+    bn = 0
     while True and running:
+        cls()
         if health < 1:
+            dotdotdot()
             print(enemyname + " has defeated you.")
             pause()
             print(enemyfinishroar)
             dotdotdot()
-            textygame.type("You faint")
+            textygame.type("You fade into darkness.")
             pause()
-            GameOver
+            GameOver()
         if enemyhp < 1:
             textygame.type("You have defeated" + enemyname + "!")
             for i in rang(0, len(items)):
@@ -170,12 +180,13 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
             print("2. Special")
             print("x. Back")
             battlemenuattack = input(ans)
-            while battlemenuattack == 1:                       #NORMAL ATTACK
+
+            while battlemenuattack == "1":                       #NORMAL ATTACK
                 cls()
                 print("Select an attack.")
                 for attack in storage.attacklist:
                     bn += 1
-                    print(bn + ". ", end="")
+                    print(str(bn) + ". ", end="")
                     print(attack)
                     if bn == 1:
                         attack1 = attack
@@ -190,23 +201,23 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
                 attackchoice = input(ans)
                 if attackchoice == "1":
                     attackchoice = attack1
-                if attackchoice == "2":
+                elif attackchoice == "2":
                     attackchoice = attack2
-                if attackchoice == "3":
+                elif attackchoice == "3":
                     attackchoice = attack3
-                if attackchoice == "4":
+                elif attackchoice == "4":
                     attackchoice = attack4
-                if attackchoice == "x":
+                else:
                     break
                 textygame.type(name + " used " + attackchoice + ("!"))
                 pause()
-                attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
-                damage = (attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['strength'])
-                if randint(1.00, 2.00) <= storage.stats['critchance']:
-                    damage = damage * randint(1.25, 1.50)
+                spellpower = storage.attacklist[attackchoice] * (random.randint(80, 120) / 100)
+                damage = ((attackpower / enemydefencepower) * (storage.stats['Agility'] / 200) * (storage.stats['Strength'])) * spellpower          #DIS HERE NEED FIXIN'
+                if (random.randint(100, 200) / 100) <= storage.stats['Critchance']:
+                    damage = damage * (random.randint(125, 150) / 100)
                 enemyhp = enemyhp - damage
-                textygame.type("...")
-                textygame.type(enemyname + " took " + damage + "points of damage!")
+                dotdotdot()
+                textygame.type(enemyname + " took " + str(round(damage)) + " points of damage!")
                 pause()
                 dotdotdot()
                 time.sleep(1)
@@ -219,16 +230,19 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
                 time.sleep(0.2)
                 cls()
                 textygame.type("BLAM!")
-                enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
-                playerhealth = playerhealth - enemydamage
-                if playerhealth < 0:
-                    playerhealth = 0
-                dotdotdot()
-                time.sleep(1)
-                textygame.type("You took " + enemydamage + " points of damage!")
-                pause()
+                ri = random.randint(1, 100)
+                if ri <= hitpercent:
+                    aint = (random.randint(50, 150) / 100)
+                    enemydamage = (((enemyattackpower / defencepower) * enemyattackpower) + 50) * aint
+                    health = health - round(enemydamage)
+                    if health < 0:
+                        health = 0
+                    dotdotdot()
+                    time.sleep(1)
+                    textygame.type("You took " + str(round(enemydamage)) + " points of damage!")
+                    pause()
 
-            while battlemenuattack == 2:                       #SPECIAL ATTACK
+            while battlemenuattack == "2":                       #SPECIAL ATTACK
                 cls()
                 print("Select an attack.")
                 for attack in storage.spattacklist:
@@ -255,14 +269,14 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
                     attackchoice = attack4
                 textygame.type(name + " used " + attackchoice + "!")
                 pause()
-                attackpower = storage.attacklist[attackchoice] * randint(0.80, 1.20)
-                damage = ((attackpower / enemydefencepower) * (storage.stats['agillity'] / 200) * (storage.stats['intellect']) * attackpower) + 50
-                if randint(1.00, 2.00) <= storage.stats['critchance']:
-                    damage = damage * randint(1.25, 1.50)
+                attackpower = storage.attacklist[attackchoice] * (random.randint(80, 120) / 100)
+                damage = ((attackpower / enemydefencepower) * (storage.stats['Agility'] / 200) * (storage.stats['Intellect']) * attackpower) + 50
+                if (random.randint(100, 200) / 100) <= storage.stats['Critchance']:
+                    damage = damage * random.randint(1.25, 1.50)
                 enemyhp = enemyhp - damage
-                textygame.type("...")
+                dotdotdot()
                 pause()
-                textygame.type(enemyname + " took " + damage + " points of damage!")
+                textygame.type(enemyname + " took " + str(round(damage)) + " points of damage!")
                 pause()
                 dotdotdot()
                 time.sleep(1)
@@ -275,18 +289,22 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
                 time.sleep(0.2)
                 cls()
                 textygame.type("BLAM!")
-                enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
-                playerhealth = playerhealth - enemydamage
-                if playerhealth < 0:
-                    playerhealth = 0
-                dotdotdot()
-                time.sleep(1)
-                textygame.type("You took " + enemydamage +" points of damage!")
-                pause()
+                ri = random.randint(1, 100)
+                if ri <= hitpercent:
+                    aint = (random.randint(50, 150) / 100)
+                    enemydamage = (((enemyattackpower / defencepower) * enemyattackpower) + 50) * aint
+                    health = health - round(enemydamage)
+                    if health < 0:
+                        health = 0
+                    dotdotdot()
+                    time.sleep(1)
+                    textygame.type("You took " + str(round(enemydamage)) +" points of damage!")
+                    pause()
 
             if battlemenuattack == "x":
                 cls()
                 break
+
         while battlemenu == "2":
             cls()
             if page < 0:
@@ -308,9 +326,9 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
             elif itemchoice == "k":
                 page -= 1
             elif itemchoice == "1" or "2" or "3" or "4" or "5":
-                useitem(storake.backpack[page * 5 + int(itemchoice) - 1 ])
+                useitem(storage.backpack[page * 5 + int(itemchoice) - 1 ])
         while battlemenu ==  "3":
-            ri = random.randint(0, 100)
+            ri = random.randint(1, 100)
             if ri <= fleepercent:
                 cls()
                 textygame.type("You fled from the battle!")
@@ -332,12 +350,15 @@ def battle(enemyname, enemymaxhp, enemydefencepower, enemyattackpower, fleeperce
                 time.sleep(0.2)
                 cls()
                 textygame.type("BLAM!")
-                enemydamage = ((enemyattackpower / defencepower) * enemyattackpower) + 50
-                playerhealth = playerhealth - enemydamage
-                if playerhealth < 0:
-                    playerhealth = 0
-                dotdotdot()
-                time.sleep(1)
-                textygame.type("You took " + enemydamage +" points of damage!")
-                pause()
+                ri = random.randint(1, 100)
+                if ri <= hitpercent:
+                    aint = (random.randint(50, 150) / 100)
+                    enemydamage = (((enemyattackpower / defencepower) * enemyattackpower) + 50) * aint
+                    health = health - round(enemydamage)
+                    if health < 0:
+                        health = 0
+                    dotdotdot()
+                    time.sleep(1)
+                    textygame.type("You took " + str(round(enemydamage)) +" points of damage!")
+                    pause()
             break
