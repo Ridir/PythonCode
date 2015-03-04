@@ -35,7 +35,23 @@ stats = {
 }
 
 attacklist = {
+	'empty' : 0,
+	'empty' : 0,
+	'empty' : 0,
+	'empty' : 0,
 }
 
 spattacklist = {
+	'empty' : 0,
+	'empty' : 0,
+	'empty' : 0,
+	'empty' : 0,
+}
+
+attacklistall = {
+
+}
+
+spattacklistall = {
+
 }
